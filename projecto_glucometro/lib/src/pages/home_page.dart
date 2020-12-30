@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:projecto_glucometro/src/BluetoothDeviceListEntry.dart';
+import 'package:projecto_glucometro/src/pages/detail_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -114,6 +115,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           onTap: () {
                             print('Estado de conexion:');
                             print('${_device.isConnected}');
+                            startConnection(context, _device);
                           },
                         ))
                     .toList(),
@@ -123,5 +125,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         ),
       ),
     );
+  }
+
+  void startConnection(BuildContext context, BluetoothDevice server) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return DetailPage(
+        server: server,
+      );
+    }));
   }
 }
